@@ -6,7 +6,7 @@ public class Main {
     public static String pathToLauncher;
     public static String pathToLauncherDir;
 
-    public static void main(String[] args) throws IOException {
+    public int main(String[] args) throws IOException {
         pathToLauncher = args[0];
         pathToLauncherDir = args[1];
         deleteFile(pathToLauncher);
@@ -15,7 +15,7 @@ public class Main {
             Utils.Updater.DownloadUpdate(pathToLauncher);
         }
         Runtime.getRuntime().exec(new String[]{"cmd","/c","start","cmd","/k","java -jar \"" + pathToLauncher + "\""});
-
+        return 0;
     }
 
     static void deleteFile(String file){
