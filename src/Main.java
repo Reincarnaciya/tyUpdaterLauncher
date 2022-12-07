@@ -1,11 +1,6 @@
-import Utils.Updater;
-
-import javax.rmi.CORBA.Util;
-import java.awt.*;
-import java.io.Console;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+
 
 public class Main {
     public static String pathToLauncher;
@@ -19,6 +14,7 @@ public class Main {
         if(!new File(pathToLauncher).exists()){
             Utils.Updater.DownloadUpdate(pathToLauncher);
         }
+        Runtime.getRuntime().exec(new String[]{"cmd","/c","start","cmd","/k","java -jar \"" + pathToLauncher + "\""});
 
     }
 
