@@ -26,6 +26,7 @@ public class Main {
 
 
         System.err.println("Запускаю лаунчер..");
+        System.err.println("Команда запуска лаунчера: " + "java -jar \"" + pathToLauncher + "\"" + " deleteUpdater");
         Runtime.getRuntime().exec("java -jar \"" + pathToLauncher + "\"" + " deleteUpdater");
         System.err.println("Вы можете закрыть это окно.");
         //Runtime.getRuntime().exec("taskkill /F /IM cmd.exe");
