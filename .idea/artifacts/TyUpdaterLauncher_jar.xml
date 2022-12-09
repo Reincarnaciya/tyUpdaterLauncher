@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="TyUpdaterLauncher:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/TyUpdaterLauncher_jar</output-path>
-    <root id="archive" name="TyUpdaterLauncher.jar">
-      <element id="module-output" name="TyUpdaterLauncher" />
-    </root>
-  </artifact>
-</component>
