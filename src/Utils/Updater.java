@@ -13,16 +13,18 @@ import java.net.URLConnection;
 public class Updater {
     public static boolean downloading = false;
 
-        //http://typro.space/files/launcher/TyLauncher.jar
+    //http://typro.space/files/launcher/TyLauncher.jar
 
     public static void DownloadUpdate(String path) {
         try {
             downloading = true;
-            URL url = new URL("https://typro.space/files/launcher/TyLauncher.jar");
+            URL url = new URL("https://typro.space/files/launcher/tyProLauncher.jar");
             HttpsURLConnection updcon = (HttpsURLConnection) url.openConnection();
             System.out.println(updcon);
             long cll_web = updcon.getContentLength();
             File pcFile = new File(path);
+            System.err.println("path = " + path);
+            System.err.println("pcFile = " + pcFile.getAbsolutePath());
             System.err.println(cll_web);
             pcFile.createNewFile();
             System.err.println(path + File.separator + "TyLauncher.jar");
@@ -36,8 +38,9 @@ public class Updater {
                     fw.write(by, 0, count);
                 }
                 fw.close();
-                downloading = false;
+
             }
+            downloading = true;
 
         } catch (IOException e) {
             downloading = false;
