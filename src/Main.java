@@ -11,7 +11,7 @@ public class Main {
 
 
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         pathToLauncher = args[0];
         pathToLauncherDir = args[1];
         System.err.println(Arrays.toString(args));
@@ -25,10 +25,6 @@ public class Main {
         }else System.err.println("Файл есть, пиздец");
 
 
-
-
-        System.err.println("Проверка..");
-        //Thread.sleep(600);
         System.err.println("Запускаю лаунчер..");
         Runtime.getRuntime().exec("java -jar \"" + pathToLauncher + "\"" + " deleteUpdater");
         System.err.println("Вы можете закрыть это окно.");
@@ -36,7 +32,16 @@ public class Main {
 
     }
 
-    static void deleteFile(String file){
-        new File(file).delete();
+    static void deleteFile(String file1){
+
+        File file = new File(file1);
+        System.err.println("Передан файл: " + file.getAbsolutePath());
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) {
+                deleteFile(f.getAbsolutePath());
+            }
+        }
+        System.err.println("Удален файл: " + file.getAbsolutePath());
+        file.delete();
     }
 }

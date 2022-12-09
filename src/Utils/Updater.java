@@ -27,7 +27,6 @@ public class Updater {
             System.err.println("pcFile = " + pcFile.getAbsolutePath());
             System.err.println(cll_web);
             pcFile.createNewFile();
-            System.err.println(path + File.separator + "TyLauncher.jar");
             if ((pcFile.length() != cll_web) && cll_web > 1) {
                 BufferedInputStream bis = new BufferedInputStream(updcon.getInputStream());
                 FileOutputStream fw = new FileOutputStream(pcFile);
