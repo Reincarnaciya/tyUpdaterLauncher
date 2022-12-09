@@ -15,14 +15,15 @@ public class Main {
         pathToLauncher = args[0];
         pathToLauncherDir = args[1];
         System.err.println(Arrays.toString(args));
+        File file = new File(pathToLauncher);
+        deleteFile(file.getAbsolutePath());
         deleteFile(pathToLauncherDir);
-        deleteFile(pathToLauncher);
-        while (new File(pathToLauncher).exists()){
-            deleteFile(pathToLauncher);
+        if (file.exists()) {
+            while (file.exists()) {
+                deleteFile(file.getAbsolutePath());
+            }
         }
-        if(!new File(pathToLauncher).exists()){
-            Utils.Updater.DownloadUpdate(pathToLauncher);
-        }else System.err.println("Файл есть, пиздец");
+        Updater.DownloadUpdate(pathToLauncher);
 
 
         System.err.println("Запускаю лаунчер..");
@@ -36,13 +37,14 @@ public class Main {
     static void deleteFile(String file1){
 
         File file = new File(file1);
-        System.err.println("Передан файл: " + file.getAbsolutePath());
+        System.err.println("Попытка удалить файл: " + file.getAbsolutePath());
         if (file.isDirectory()) {
             for (File f : file.listFiles()) {
                 deleteFile(f.getAbsolutePath());
             }
         }
-        System.err.println("Удален файл: " + file.getAbsolutePath());
-        file.delete();
+        if (file.delete()){
+            System.err.println("Удален файл: " + file.getAbsolutePath());
+        }
     }
 }

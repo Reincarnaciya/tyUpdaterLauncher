@@ -35,6 +35,7 @@ public class Updater {
                 System.out.println("Скачиваем новый лаунчер..");
                 while ((count = bis.read(by)) != -1) {
                     fw.write(by, 0, count);
+                    System.err.println("Скачано: " + pcFile.length() + "/" + cll_web);
                 }
                 fw.close();
 
