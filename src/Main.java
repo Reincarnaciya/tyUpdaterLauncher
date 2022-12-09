@@ -8,12 +8,11 @@ public class Main {
 
 
 
-    public int main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         pathToLauncher = args[0];
         pathToLauncherDir = args[1];
         deleteFile(pathToLauncher);
         deleteFile(pathToLauncherDir);
-
 
         Utils.Updater.DownloadUpdate(pathToLauncher);
 
@@ -26,13 +25,6 @@ public class Main {
         Runtime.getRuntime().exit(0);
         Runtime.getRuntime().halt(0);
         System.exit(0);
-
-        if(!new File(pathToLauncher).exists()){
-            Utils.Updater.DownloadUpdate(pathToLauncher);
-        }
-        Runtime.getRuntime().exec(new String[]{"cmd","/c","start","cmd","/k","java -jar \"" + pathToLauncher + "\""});
-        return 0;
-
     }
 
     static void deleteFile(String file){
