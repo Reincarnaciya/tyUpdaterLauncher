@@ -18,6 +18,7 @@ public class Updater {
     public static void DownloadUpdate(String path) {
         try {
             downloading = true;
+            System.err.println("Подключаюсь к серверу..");
             URL url = new URL("https://typro.space/files/launcher/tyProLauncher.jar");
             HttpsURLConnection updcon = (HttpsURLConnection) url.openConnection();
             System.out.println(updcon);
@@ -25,7 +26,7 @@ public class Updater {
             File pcFile = new File(path);
             System.err.println("path = " + path);
             System.err.println("pcFile = " + pcFile.getAbsolutePath());
-            System.err.println(cll_web);
+            System.err.println("Размер нового лаунчера: " + cll_web);
             pcFile.createNewFile();
             if ((pcFile.length() != cll_web) && cll_web > 1) {
                 BufferedInputStream bis = new BufferedInputStream(updcon.getInputStream());
@@ -38,7 +39,6 @@ public class Updater {
                     System.err.println("Скачано: " + pcFile.length() + "/" + cll_web);
                 }
                 fw.close();
-
             }
             downloading = true;
 
