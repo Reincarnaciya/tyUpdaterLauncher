@@ -1,2 +1,2 @@
 # TyUpdaterLauncher
- Updater for tyLauncher
+ Updater for [tyLauncher](https://github.com/Reincarnaciya/tyProLauncher)
