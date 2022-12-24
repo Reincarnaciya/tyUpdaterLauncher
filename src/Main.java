@@ -32,17 +32,18 @@ public class Main {
                 "                                                                   \n" +
                 "");
 
+
         pathToLauncher = args[0];
         pathToLauncherDir = args[1];
         System.err.println(Arrays.toString(args));
         System.err.println("Удаляю старые файлы..");
         File file = new File(pathToLauncher);
-        deleteFile(file.getAbsolutePath());
-        deleteFile(pathToLauncherDir);
+        deleteFile(new File(pathToLauncherDir), new File(pathToLauncherDir + File.separator + "clients"));
+        System.err.println( new File(pathToLauncherDir + File.separator + "clients").getAbsolutePath());
         if (file.exists()) {
-            while (file.exists()) {
-                deleteFile(file.getAbsolutePath());
-            }
+           while (file.exists()) {
+               file.delete();
+           }
         }
         System.err.println("Начинаю закачку нового лаунчера..");
         Updater.DownloadUpdate(pathToLauncher);
@@ -55,20 +56,16 @@ public class Main {
         //Runtime.getRuntime().exec("taskkill /F /IM cmd.exe");
 
     }
-
-    static void deleteFile(String file1){
-
-        File file = new File(file1);
-        if(!lastFile.equals(file1)) System.err.println("Попытка удалить файл: " + file.getAbsolutePath().trim());
-
-        lastFile = file1;
-        if (file.isDirectory()) {
-            for (File f : file.listFiles()) {
-                deleteFile(f.getAbsolutePath());
+    public static void deleteFile(File dir, File excludedDir) {
+        for (File file : dir.listFiles()) {
+            if (file.isDirectory()) {
+                if (!file.equals(excludedDir)) {
+                    deleteFile(file, excludedDir);
+                    file.delete();
+                }
+            } else {
+                file.delete();
             }
-        }
-        if (file.delete()){
-            System.err.println("Удален файл: " + file.getAbsolutePath().trim());
         }
     }
 }

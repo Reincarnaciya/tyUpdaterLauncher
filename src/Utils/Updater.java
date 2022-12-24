@@ -19,7 +19,7 @@ public class Updater {
         try {
             downloading = true;
             System.err.println("Подключаюсь к серверу..");
-            URL url = new URL("https://typro.space/files/launcher/tyProLauncher.jar");
+            URL url = new URL("https://typro.space/files/launcher/Launcher/TyLauncher.jar");
             HttpsURLConnection updcon = (HttpsURLConnection) url.openConnection();
             System.out.println(updcon);
             long cll_web = updcon.getContentLength();
