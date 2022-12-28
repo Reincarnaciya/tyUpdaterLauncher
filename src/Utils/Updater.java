@@ -19,7 +19,7 @@ public class Updater {
         try {
             downloading = true;
             System.err.println("Подключаюсь к серверу..");
-            URL url = new URL("https://typro.space/files/launcher/Launcher/TyLauncher.jar");
+            URL url = new URL("https://typro.space/files/launcher/Launcher/TyLauncher.exe");
             HttpsURLConnection updcon = (HttpsURLConnection) url.openConnection();
             System.out.println(updcon);
             long cll_web = updcon.getContentLength();
@@ -40,11 +40,12 @@ public class Updater {
                 }
                 fw.close();
             }
-            downloading = true;
 
         } catch (IOException e) {
             downloading = false;
             e.printStackTrace();
+        }finally {
+            downloading = false;
         }
 
     }
