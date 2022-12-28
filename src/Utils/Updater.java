@@ -38,7 +38,9 @@ public class Updater {
                     fw.write(by, 0, count);
                     System.err.println("Скачано: " + pcFile.length() + "/" + cll_web);
                 }
+                bis.close();
                 fw.close();
+
             }
 
         } catch (IOException e) {

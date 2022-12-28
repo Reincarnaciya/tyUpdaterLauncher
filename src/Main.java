@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 
+
 public class Main {
     public static String pathToLauncher;
     public static String pathToLauncherDir;
@@ -34,7 +35,7 @@ public class Main {
                     "                                                                   \n" +
                     "");
 
-            boolean debug = true;
+            boolean debug = false;
             if(debug){
                 pathToLauncher = "C:/Users/RC/Documents/TyLauncher.exe";
                 pathToLauncherDir = "C:\\Users\\RC\\AppData\\Roaming\\.TyPro";
@@ -57,16 +58,16 @@ public class Main {
             System.err.println("Начинаю закачку нового лаунчера..");
             Updater.DownloadUpdate(pathToLauncher);
 
-
-            System.err.println("Запускаю лаунчер..");
             System.err.println("pathtoLauncher = " + pathToLauncher);
 
-            Runtime.getRuntime().exec(new String[]{"cmd","/c","start","cmd","/k"," \"" + pathToLauncher + "\" " + "\" deleteUpdater\""});
-            System.exit(0);
+            //Desktop.getDesktop().open(new File(pathToLauncher));
+
             //ProcessBuilder pb = new ProcessBuilder(pathToLauncher, "deleteUpdater");
             //Process p = pb.start();
+            System.err.println("Лаунчер успешно обновлен! Откройте его :)");
 
             System.err.println("Вы можете закрыть это окно.");
+            System.exit(0);
         }catch (Exception e){
             e.printStackTrace();
         }
