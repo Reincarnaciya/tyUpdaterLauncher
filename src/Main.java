@@ -49,11 +49,11 @@ public class Main {
             System.err.println("Удаляю старые файлы..");
             File file = new File(pathToLauncher);
             deleteFile(new File(pathToLauncherDir), new File(pathToLauncherDir + File.separator + "clients"));
+
             System.err.println( new File(pathToLauncherDir + File.separator + "clients").getAbsolutePath());
+
             if (file.exists()) {
-                while (file.exists()) {
-                    file.delete();
-                }
+                file.delete();
             }
             System.err.println("Начинаю закачку нового лаунчера..");
             Updater.DownloadUpdate(pathToLauncher);
@@ -62,8 +62,10 @@ public class Main {
 
             //Desktop.getDesktop().open(new File(pathToLauncher));
 
-            //ProcessBuilder pb = new ProcessBuilder(pathToLauncher, "deleteUpdater");
-            //Process p = pb.start();
+
+            Runtime.getRuntime().exec(pathToLauncher);
+
+
             System.err.println("Лаунчер успешно обновлен! Откройте его :)");
 
             System.err.println("Вы можете закрыть это окно.");
