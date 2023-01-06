@@ -13,13 +13,13 @@ import java.net.URLConnection;
 public class Updater {
     public static boolean downloading = false;
 
-    //http://typro.space/files/launcher/TyLauncher.jar
+    //http://typro.space/files/TyLauncher.jar
 
     public static void DownloadUpdate(String path) {
         try {
             downloading = true;
             System.err.println("Подключаюсь к серверу..");
-            URL url = new URL("https://typro.space/files/launcher/Launcher/TyLauncher.exe");
+            URL url = new URL("https://typro.space/files/launcher/TyLauncher.exe");
             HttpsURLConnection updcon = (HttpsURLConnection) url.openConnection();
             System.out.println(updcon);
             long cll_web = updcon.getContentLength();
