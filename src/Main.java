@@ -10,12 +10,14 @@
 
 import Utils.Updater;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 
 public class Main {
     private static final boolean debug = false; // debug mod
-
+    private static Path[] paths;
     public static String pathToLauncher;
     public static String pathToLauncherDir;
 
@@ -47,12 +49,17 @@ public class Main {
                 pathToLauncher = args[0];
                 pathToLauncherDir = args[1];
             }
-
+            paths = new Path[]{
+                    Paths.get(pathToLauncherDir + "\\clients\\"),
+                    Paths.get(pathToLauncherDir+"\\runtime\\"),
+                    Paths.get(pathToLauncherDir+"\\auth.json"),
+                    Paths.get(pathToLauncherDir+"\\settings.json")
+            };
 
             System.err.println(Arrays.toString(args));
             System.err.println("Удаляю старые файлы..");
             File file = new File(pathToLauncher);
-            deleteFile(new File(pathToLauncherDir), new File(pathToLauncherDir + File.separator + "clients"));
+            deleteFile(new File(pathToLauncherDir));
 
             System.err.println( new File(pathToLauncherDir + File.separator + "clients").getAbsolutePath());
 
@@ -77,16 +84,12 @@ public class Main {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
-    public static void deleteFile(File dir, File excludedDir) {
+    public static void deleteFile(File dir) {
         for (File file : dir.listFiles()) {
+            if (Arrays.stream(paths).anyMatch(path -> path.startsWith(file.getAbsolutePath()))) continue;
             if (file.isDirectory()) {
-                if (!file.equals(excludedDir)) {
-                    deleteFile(file, excludedDir);
-                    file.delete();
-                }
+                deleteFile(file);
             } else {
                 file.delete();
             }
