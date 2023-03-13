@@ -1,4 +1,4 @@
-/*
+/**
  * @author Reincarnaciya
  * Git - https://github.com/Reincarnaciya
  *
@@ -10,11 +10,17 @@
 
 import Utils.Updater;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
-
 public class Main {
-    private static final boolean debug = false; // debug mod
+    private static final boolean debug = true; // debug mod
+
+    private static final String[] exclusions = new String[]{
+            "clients",
+            "auth.json",
+            "settings.json"
+    };
 
     public static String pathToLauncher;
     public static String pathToLauncherDir;
@@ -41,18 +47,20 @@ public class Main {
 
 
             if(debug){
-                pathToLauncher = "C:/Users/RC/Documents/TyLauncher.exe";
-                pathToLauncherDir = "C:\\Users\\RC\\AppData\\Roaming\\.TyPro";
+                pathToLauncher = "C:\\Users\\admin\\Documents\\TyLauncher.exe";
+                pathToLauncherDir = "C:\\Users\\admin\\AppData\\Roaming\\.TyPro";
             }else {
                 pathToLauncher = args[0];
                 pathToLauncherDir = args[1];
             }
 
-
             System.err.println(Arrays.toString(args));
             System.err.println("Удаляю старые файлы..");
             File file = new File(pathToLauncher);
-            deleteFile(new File(pathToLauncherDir), new File(pathToLauncherDir + File.separator + "clients"));
+            //deleteFile(new File(pathToLauncherDir), new File(pathToLauncherDir + File.separator + "clients"));
+
+
+            deleteFilesExcept(new File(pathToLauncherDir));
 
             System.err.println( new File(pathToLauncherDir + File.separator + "clients").getAbsolutePath());
 
@@ -80,16 +88,56 @@ public class Main {
 
 
     }
-    public static void deleteFile(File dir, File excludedDir) {
-        for (File file : dir.listFiles()) {
-            if (file.isDirectory()) {
-                if (!file.equals(excludedDir)) {
-                    deleteFile(file, excludedDir);
-                    file.delete();
-                }
-            } else {
-                file.delete();
-            }
-        }
+//    public static void deleteFile(File dir, File excludedDir) {
+//        for (File file : dir.listFiles()) {
+//            if (file.isDirectory()) {
+//                if (!file.equals(excludedDir)) {
+//                    deleteFile(file, excludedDir);
+//                    file.delete();
+//                }
+//            } else {
+//                file.delete();
+//            }
+//        }
+//    }
+
+    /**
+     * Удаление всех файлов из директории кроме тех что указаны в Main.exclusions
+     * @param folder проверяемая папка с удалением
+     * */
+    public static void deleteFilesExcept(File folder) {
+        File[] files = folder.listFiles();
+
+        Arrays.stream(files)
+                .filter(file -> !Arrays.stream(Main.exclusions).anyMatch(exclusion -> exclusion.equals(file.getName())))
+                .forEach(file -> {
+                    if (file.isDirectory()) {
+                        deleteDirectory(file);
+                    } else {
+                        file.delete();
+                    }
+                });
     }
+    /**
+     * Простое удаление папки
+     * @param directory папка, которую надо удалить
+     * */
+    private static void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
+
+        Arrays.stream(files)
+                .forEach(file -> {
+                    if (file.isDirectory()) {
+                        deleteDirectory(file);
+                    } else {
+                        file.delete();
+                    }
+                });
+
+        directory.delete();
+    }
+
 }
+
+
+
