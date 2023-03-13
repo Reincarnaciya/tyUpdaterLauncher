@@ -13,6 +13,8 @@ import java.net.URLConnection;
 public class Updater {
     public static boolean downloading = false;
 
+    private static final char[] animationChars = new char[]{'|', '/', '-', '\\'}; // символы загрузки
+
     //http://typro.space/files/TyLauncher.jar
 
     public static void DownloadUpdate(String path) {
@@ -29,27 +31,32 @@ public class Updater {
             System.err.println("Размер нового лаунчера: " + cll_web);
             pcFile.createNewFile();
             if ((pcFile.length() != cll_web) && cll_web > 1) {
+                System.out.println("Скачиваем новый лаунчер!\n");
                 BufferedInputStream bis = new BufferedInputStream(updcon.getInputStream());
                 FileOutputStream fw = new FileOutputStream(pcFile);
                 byte[] by = new byte[1024];
                 int count = 0;
-                System.out.println("Скачиваем новый лаунчер..");
+                long progress = 0; // progress as a percentage
+                System.out.print("Начало загрузки...");
                 while ((count = bis.read(by)) != -1) {
                     fw.write(by, 0, count);
-                    System.err.println("Скачано: " + pcFile.length() + "/" + cll_web);
+                    long current_progress = (pcFile.length()*100)/cll_web; // расчет процента успеха
+                    if (current_progress > progress){ // Если значение изменилось, то запоминаем его и выводим
+                        System.err.print("\rprogress: " + current_progress + "% / 100%  ["
+                                + animationChars[(int) (current_progress % animationChars.length)] + ']');
+                        progress = current_progress;
+                    }
                 }
+                System.out.print("\n\n");
                 bis.close();
                 fw.close();
-
             }
-
         } catch (IOException e) {
             downloading = false;
             e.printStackTrace();
         }finally {
             downloading = false;
         }
-
     }
 }
 
