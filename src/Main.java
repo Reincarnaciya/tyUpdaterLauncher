@@ -1,21 +1,25 @@
-import Utils.Updater;
+/*
+ * @author Reincarnaciya
+ * Git - https://github.com/Reincarnaciya
+ *
+ * Assistant patch3
+ * Git - https://github.com/patch3
+ *
+ * @version 0.5
+ */
 
-import java.awt.*;
+import Utils.Updater;
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 
-
 public class Main {
+    private static final boolean debug = false; // debug mod
+
     public static String pathToLauncher;
     public static String pathToLauncherDir;
 
-    private static String lastFile = "";
-
-
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
             System.err.println("            _______ __     __ _____  _____  _____            _      \n" +
                     "           |__   __|\\ \\   / /|  __ \\|_   _|/ ____|    /\\    | |     \n" +
@@ -35,7 +39,7 @@ public class Main {
                     "                                                                   \n" +
                     "");
 
-            boolean debug = false;
+
             if(debug){
                 pathToLauncher = "C:/Users/RC/Documents/TyLauncher.exe";
                 pathToLauncherDir = "C:\\Users\\RC\\AppData\\Roaming\\.TyPro";
