@@ -15,8 +15,8 @@ public class Updater {
 
     private static final char[] animationChars = new char[]{'|', '/', '-', '\\'}; // символы загрузки
 
+    //http://typro.space/files/TyLauncher.jar
 
-    //https://typro.space/files/launcher/TyLauncher.exe
     public static void DownloadUpdate(String path) {
         try {
             downloading = true;
